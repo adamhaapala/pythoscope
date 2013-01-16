@@ -105,6 +105,8 @@ class TestGenerator(object):
     def from_template(cls, template):
         if template == 'unittest':
             return UnittestTestGenerator()
+        elif template == 'django':
+            return DjangoUnittestTestGenerator()
         elif template == 'nose':
             return NoseTestGenerator()
         else:
@@ -237,6 +239,15 @@ class UnittestTestGenerator(TestGenerator):
     def test_class_header(self, name):
         self.ensure_import('unittest')
         return "class %s(unittest.TestCase):" % name
+
+
+class DjangoUnittestTestGenerator(TestGenerator):
+    template = UnittestTemplate()
+
+    def test_class_header(self, name):
+        self.ensure_import(('django.test', 'TestCase'))
+        return "class %s(TestCase):" % name
+
 
 class NoseTestGenerator(TestGenerator):
     template = NoseTemplate()

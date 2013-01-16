@@ -62,6 +62,8 @@ Available templates:
                  import-safe call to unittest.main().
   * nose         Nose-style tests, which don't import unittest and use
                  SkipTest as a default test body.
+  * django       Django-style tests, which import django.test.TestCase instead
+                 of unittest.TestCase
 """
 
 def fail(message):
